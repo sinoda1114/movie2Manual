@@ -62,20 +62,14 @@
         p, textarea, input { font-size: 12pt !important; }
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "docx": "https://esm.sh/docx@8.5.0",
-    "file-saver": "https://esm.sh/file-saver@2.0.5"
-  }
-}
-</script>
 </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>
+    <script type="module">
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/95c683ef-5a22-416a-a54d-dce0f6a7cf6a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:82',message:'Script tag execution started',data:{hasRoot:!!document.getElementById('root')},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(()=>{});
+      // #endregion
+    </script>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

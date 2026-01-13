@@ -7,11 +7,19 @@ import { extractFramesFromVideo } from './services/videoUtils';
 import { generateManualFromFrames } from './services/geminiService';
 
 const App: React.FC = () => {
+  // #region agent log
+  fetch('http://127.0.0.1:7245/ingest/95c683ef-5a22-416a-a54d-dce0f6a7cf6a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:10',message:'App component rendering',data:{hasReact:typeof React!=='undefined',hasUseState:typeof useState!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+  // #endregion
+  
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
   const [progress, setProgress] = useState(0);
   const [frames, setFrames] = useState<FrameData[]>([]);
   const [manual, setManual] = useState<GeneratedManual | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // #region agent log
+  fetch('http://127.0.0.1:7245/ingest/95c683ef-5a22-416a-a54d-dce0f6a7cf6a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:17',message:'App state initialized',data:{appState,hasTailwind:typeof window!=='undefined'&&window.getComputedStyle(document.body).getPropertyValue('--tw-bg-slate-50')!==''||document.querySelector('script[src*="tailwind"]')!==null},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
 
   const handleFileSelect = async (file: File) => {
     try {
@@ -55,6 +63,10 @@ const App: React.FC = () => {
     setError(null);
     setProgress(0);
   };
+
+  // #region agent log
+  fetch('http://127.0.0.1:7245/ingest/95c683ef-5a22-416a-a54d-dce0f6a7cf6a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:60',message:'App return statement reached',data:{appState,hasManual:!!manual,hasError:!!error},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+  // #endregion
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
