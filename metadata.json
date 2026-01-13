@@ -1,0 +1,5 @@
+{
+  "name": "DocuFlow AI",
+  "description": "画面収録を瞬時にプロフェッショナルな手順書に変換します。Gemini 3.0 Flashの視覚分析を使用し、テキストとスクリーンショットを自動生成します。",
+  "requestFramePermissions": []
+}
