@@ -6,70 +6,9 @@
     <title>DocuFlow AI - 動画からマニュアル作成</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      body { font-family: 'Inter', sans-serif; }
-      /* Custom scrollbar for cleaner look */
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-      /* Printing Styles for PDF Export */
-      @media print {
-        @page {
-          margin: 20mm;
-          size: A4;
-        }
-        body {
-          background-color: white !important;
-          color: black !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-        /* Hide non-printable elements */
-        .no-print, header, button, input[type="file"], .toolbar-area {
-          display: none !important;
-        }
-        /* Ensure inputs look like text */
-        input, textarea {
-          border: none !important;
-          background: transparent !important;
-          resize: none !important;
-          padding: 0 !important;
-          width: 100% !important;
-          color: black !important;
-        }
-        /* Improve layout for print */
-        .print-container {
-          box-shadow: none !important;
-          border: none !important;
-          padding: 0 !important;
-          max-width: 100% !important;
-          width: 100% !important;
-          margin: 0 !important;
-        }
-        /* Avoid breaking steps inside pages */
-        .step-item {
-          break-inside: avoid;
-          page-break-inside: avoid;
-          border-bottom: 1px solid #eee;
-          padding-bottom: 20px;
-          margin-bottom: 20px;
-        }
-        /* Headers */
-        h1 { font-size: 24pt !important; margin-bottom: 16pt !important; }
-        h2 { font-size: 18pt !important; }
-        p, textarea, input { font-size: 12pt !important; }
-      }
-    </style>
 </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>
-    <script type="module">
-      // #region agent log
-      fetch('http://127.0.0.1:7245/ingest/95c683ef-5a22-416a-a54d-dce0f6a7cf6a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:82',message:'Script tag execution started',data:{hasRoot:!!document.getElementById('root')},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
-    </script>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
