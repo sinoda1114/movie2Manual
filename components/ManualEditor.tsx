@@ -78,10 +78,16 @@ const ManualEditor: React.FC<ManualEditorProps> = ({ manual, frames, onReset }) 
           <div className="mb-8 border-b border-slate-100 pb-6">
             <h1 className="text-3xl font-bold text-slate-900 mb-4">{editedManual.title}</h1>
             <textarea
-                className="w-full text-slate-600 bg-transparent border-0 resize-none focus:ring-0 p-0 text-base"
-                rows={2}
+                className="w-full text-slate-600 bg-transparent border-0 resize-none focus:ring-0 p-0 text-base overflow-hidden"
+                rows={Math.max(2, Math.ceil(editedManual.overview.length / 50))}
                 value={editedManual.overview}
-                onChange={(e) => updateHeader('overview', e.target.value)}
+                onChange={(e) => {
+                  updateHeader('overview', e.target.value);
+                  // Auto-resize textarea
+                  e.target.style.height = 'auto';
+                  e.target.style.height = e.target.scrollHeight + 'px';
+                }}
+                style={{ minHeight: '48px', maxHeight: 'none' }}
             />
           </div>
 
