@@ -57,54 +57,27 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 flex flex-col font-sans text-slate-900">
       
-      {/* Header - Only show if not in editor mode for cleaner workspace */}
-      {appState !== AppState.EDITOR && (
-        <header className="py-6 px-8 border-b border-slate-200 bg-white">
-          <div className="max-w-7xl mx-auto flex items-center gap-3">
-             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                D
-             </div>
-             <h1 className="text-xl font-bold tracking-tight text-slate-900">DocuFlow AI</h1>
-          </div>
-        </header>
-      )}
-
       {/* Main Content */}
-      <main className={`flex-1 flex flex-col ${appState === AppState.EDITOR ? 'p-0' : 'p-8'}`}>
+      <main className={`flex-1 flex flex-col ${appState === AppState.EDITOR ? 'p-0' : 'p-8 md:p-12'}`}>
         
         {/* State: IDLE */}
         {appState === AppState.IDLE && (
-          <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full animate-fade-in">
-             <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                    画面収録を <br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                        完璧なマニュアルへ
+          <div className="flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto w-full animate-fade-in">
+             <div className="text-center mb-16 space-y-6">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600">
+                        動画からマニュアルへ
                     </span>
                 </h2>
-                <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
                     業務フローの動画をアップロードしてください。AIが手順を抽出し、説明文を作成し、スクリーンショットを自動生成します。
-                    <span className="block mt-2 font-medium text-indigo-600">バックエンド不要。ブラウザで完結します。</span>
                 </p>
              </div>
              
-             <UploadArea onFileSelect={handleFileSelect} />
-             
-             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-500 w-full max-w-3xl">
-                <div className="flex items-center gap-2">
-                    <span className="bg-indigo-100 text-indigo-600 p-1 rounded">📹</span>
-                    <span>MP4, MOV, WebM 対応</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="bg-indigo-100 text-indigo-600 p-1 rounded">⚡</span>
-                    <span>Gemini 3.0 Flash 搭載</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="bg-indigo-100 text-indigo-600 p-1 rounded">📄</span>
-                    <span>Docs & Markdown 出力</span>
-                </div>
+             <div className="w-full max-w-3xl">
+               <UploadArea onFileSelect={handleFileSelect} />
              </div>
           </div>
         )}

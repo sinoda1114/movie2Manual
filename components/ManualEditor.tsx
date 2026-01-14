@@ -30,13 +30,6 @@ const ManualEditor: React.FC<ManualEditorProps> = ({ manual, frames, onReset }) 
     return frame ? frame.dataUrl : null;
   };
 
-  const handleCopyMarkdown = () => {
-    const text = `# ${editedManual.title}\n\n${editedManual.overview}\n\n` + 
-      editedManual.steps.map((step, i) => `## 手順 ${i + 1}: ${step.title}\n${step.description}\n`).join('\n');
-    navigator.clipboard.writeText(text);
-    alert('Markdownをクリップボードにコピーしました！');
-  };
-
   const handleWordExport = async () => {
     try {
       setIsExporting(true);
@@ -47,10 +40,6 @@ const ManualEditor: React.FC<ManualEditorProps> = ({ manual, frames, onReset }) 
     } finally {
       setIsExporting(false);
     }
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   return (
@@ -66,34 +55,17 @@ const ManualEditor: React.FC<ManualEditorProps> = ({ manual, frames, onReset }) 
                 className="text-xl font-bold text-slate-800 bg-transparent border border-transparent hover:border-slate-300 focus:border-indigo-500 focus:ring-0 rounded px-1 -ml-1 w-full truncate"
             />
            </div>
-           <p className="text-sm text-slate-500 mt-1">DocuFlow AI により生成</p>
         </div>
         
         <div className="flex flex-wrap gap-2 md:gap-3 shrink-0">
-            <Button variant="outline" size="sm" onClick={onReset}>最初から</Button>
+            <Button variant="outline" size="sm" onClick={onReset}>リセット</Button>
             
-            <Button variant="secondary" size="sm" onClick={handleCopyMarkdown} icon={
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-            }>
-                MDコピー
-            </Button>
-
             <Button variant="primary" size="sm" onClick={handleWordExport} isLoading={isExporting} icon={
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
             }>
-                Word / Googleドキュメント
-            </Button>
-
-            <Button variant="outline" size="sm" onClick={handlePrint} icon={
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                </svg>
-            }>
-                PDF / 印刷
+                Wordへ出力
             </Button>
         </div>
       </div>
