@@ -3,7 +3,7 @@ import { AppState, FrameData, GeneratedManual } from './types';
 import UploadArea from './components/UploadArea';
 import ProcessingStatus from './components/ProcessingStatus';
 import ManualEditor from './components/ManualEditor';
-import { extractFramesFromVideo } from './services/videoUtils';
+import { extractFramesFromVideo, extractAudioFromVideo } from './services/videoUtils';
 import { generateManualFromFrames } from './services/geminiService';
 
 const App: React.FC = () => {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
       // 1. Client-side frame extraction
       // Pass a progress callback
       const extractedFrames = await extractFramesFromVideo(file, (pct) => {
-        setProgress(pct);
+        setProgress(pct * 0.5); // Frame extraction is 50% of total progress
       });
       
       console.log(`Extracted ${extractedFrames.length} frames`);
@@ -32,11 +32,26 @@ const App: React.FC = () => {
         throw new Error("動画からフレームを抽出できませんでした。");
       }
 
-      // 2. Send to Gemini
+      // 2. Extract audio from video (optional, continues even if fails)
+      let audioBase64: string | null = null;
+      try {
+        console.log('Extracting audio from video...');
+        audioBase64 = await extractAudioFromVideo(file);
+        if (audioBase64) {
+          console.log('Audio extracted successfully');
+        } else {
+          console.log('No audio track found or extraction failed (continuing without audio)');
+        }
+      } catch (error) {
+        console.warn('Audio extraction failed, continuing without audio:', error);
+        audioBase64 = null;
+      }
+
+      // 3. Send to Gemini with frames and audio
       setAppState(AppState.ANALYZING_AI);
-      setProgress(0); // Reset progress for AI phase (indeterminate or simulated)
+      setProgress(50); // Start AI phase at 50%
       
-      const generatedDoc = await generateManualFromFrames(extractedFrames);
+      const generatedDoc = await generateManualFromFrames(extractedFrames, audioBase64);
       
       setManual(generatedDoc);
       setAppState(AppState.EDITOR);
